@@ -1,7 +1,36 @@
 .job-card {
   padding: 24px 8px 8px 24px;
   width: 33.33%;
-  min-height: 200px;
+}
+
+@media (max-width: 1200px) {
+  .job-card {
+    flex-basis: 33.3333%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 33.3333%;
+  }
+}
+
+@media (max-width: 900px) {
+  .job-card {
+    flex-basis: 50%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .job-card {
+    flex-basis: 100%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 100%;
+  }
+  .card {
+    max-width: unset !important;
+  }
 }
 
 .card {

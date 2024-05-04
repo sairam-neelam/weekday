@@ -11,7 +11,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  minWidth: 300,
+  maxWidth: 600,
   bgcolor: "background.paper",
   boxShadow: 24,
   borderRadius: "10px",
@@ -72,11 +73,11 @@ const JobCard = ({ job }: { job: JobsListArr }) => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={{ ...style, width: 600 }}>
+          <Box sx={{ ...style }}>
             <h2 id="parent-modal-title" className="parent-modal-title">
               Job Description
             </h2>
-            <p>About Company</p>
+            <h3>About Company</h3>
             <p
               id="parent-modal-description"
               className="parent-modal-description"
