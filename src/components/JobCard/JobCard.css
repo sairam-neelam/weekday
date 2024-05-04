@@ -1,0 +1,174 @@
+.job-card {
+  padding: 24px 8px 8px 24px;
+  width: 33.33%;
+  min-height: 200px;
+}
+
+.card {
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px !important;
+  padding: 21px 21px 8px 21px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px 0px !important;
+  height: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.company-logo {
+  height: 40px;
+  width: 40px;
+}
+
+.logo-container {
+  gap: 10px;
+}
+
+.company-name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+  color: #8b8b8b;
+  margin-top: 0;
+}
+
+.job-role {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.job-location {
+  font-size: 11px;
+  font-weight: 500;
+  margin-top: 5px;
+  margin-bottom: 0;
+  text-transform: capitalize;
+  font-weight: 400;
+}
+
+.salary {
+  font-size: 14px !important;
+  font-weight: 400;
+  margin: 8px 0 !important;
+  color: rgb(77, 89, 106);
+  line-height: 1.43;
+}
+
+.description-container {
+  height: 250px;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    rgb(255, 255, 255),
+    rgb(255, 255, 255),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.desc-label {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.desc {
+  white-space: pre-wrap;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.show-more-container {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  position: relative;
+  top: -20px;
+}
+
+.show-more-container a {
+  color: #4943da;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.exp-container {
+  margin-bottom: 10px;
+}
+
+.exp-container h3 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+  color: #8b8b8b;
+  margin-top: 10px;
+}
+
+.exp-container h2 {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.button-container .btn {
+  text-transform: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  margin: 5px 0;
+  width: 100%;
+  border: 0;
+  line-height: 1.75;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.apply-btn {
+  background-color: rgb(85, 239, 196);
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+}
+
+.ref-btn {
+  color: #fff;
+  background-color: rgb(73, 67, 218);
+  font-weight: 500;
+}
+
+.bolt-icon {
+  color: #e1c113;
+  margin-right: 10px;
+}
+
+.avatar {
+  background: white;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.avatar path {
+  color: gray;
+}
+
+.parent-modal-title {
+  text-align: center;
+  margin-top: 0;
+}

@@ -13,21 +13,23 @@ export interface FetchJobsListRequestPayload {
   limit: number;
 }
 
+export interface JobsListArr {
+  companyName: string;
+  jdLink: string;
+  jdUid: string;
+  jobDetailsFromCompany: string;
+  jobRole: string;
+  location: string;
+  logoUrl: string;
+  maxExp: number;
+  maxJdSalary: number;
+  minExp: number;
+  minJdSalary: number;
+  salaryCurrencyCode: string;
+}
+
 export interface FetchJobsListSuccessPayload {
-  jdList: {
-    companyName: string;
-    jdLink: string;
-    jdUid: string;
-    jobDetailsFromCompany: string;
-    jobRole: string;
-    location: string;
-    logoUrl: string;
-    maxExp: number;
-    maxJdSalary: number;
-    minExp: number;
-    minJdSalary: number;
-    salaryCurrencyCode: string;
-  }[];
+  jdList: JobsListArr[];
   totalCount: number;
   success: boolean;
 }

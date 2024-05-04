@@ -1,7 +1,28 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 * {
   box-sizing: border-box;
+  font-style: normal;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-50 {
+  width: 50%;
 }

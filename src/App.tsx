@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
-import { useDispatch } from "react-redux";
-import { fetchJobsListRequest } from "./store/SearchJobs/action";
+import JobsList from "./components/JobsList/JobsList";
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchJobsListRequest({ offset: 0, limit: 10 }));
-  }, []);
-
-  return <div className="App">Init Commit</div>;
+  return (
+    <div className="App">
+      <JobsList />
+    </div>
+  );
 }
 
 export default App;
