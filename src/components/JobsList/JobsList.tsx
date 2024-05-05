@@ -7,6 +7,7 @@ import { JobsListArr } from "../../store/SearchJobs/types";
 import "./JobsList.css";
 import JobCard from "../JobCard/JobCard";
 import Select from "react-select";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   BASE_SALARY,
   EXPERIENCE,
@@ -48,7 +49,6 @@ const JobsList = () => {
       const hasVerticalScrollbar =
         parentElement.scrollHeight > parentElement.clientHeight;
       if (!hasVerticalScrollbar) {
-        // Add additional content or adjust styling to make scrolling possible
         parentElement.style.overflowY = "auto";
         parentElement.style.height = "600px";
       } else {
@@ -274,6 +274,11 @@ const JobsList = () => {
           ))}
         </div>
       </div>
+      {jobsData?.isLoading && (
+        <div className="flex flex-center">
+          <CircularProgress />
+        </div>
+      )}
     </div>
   );
 };

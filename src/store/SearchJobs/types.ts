@@ -32,6 +32,7 @@ export interface FetchJobsListSuccessPayload {
   jdList: JobsListArr[];
   totalCount: number;
   success: boolean;
+  isLoading?: boolean;
 }
 
 export interface FetchJobsListFailurePayload {

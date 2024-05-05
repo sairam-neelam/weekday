@@ -11,6 +11,7 @@ const initialState: IJobsList = {
     jdList: [],
     success: false,
     totalCount: 0,
+    isLoading: false,
   },
 };
 
@@ -22,6 +23,10 @@ const jobsReducer: Reducer<IJobsList, SearchJobsActions> = (
     case FETCH_JOBS_LIST_REQUEST:
       return {
         ...state,
+        jobsData: {
+          ...state.jobsData,
+          isLoading: true,
+        },
       };
     case FETCH_JOBS_LIST_SUCCESS:
       return {
@@ -30,6 +35,7 @@ const jobsReducer: Reducer<IJobsList, SearchJobsActions> = (
           jdList: action.payload.jdList,
           success: action.payload.success,
           totalCount: action.payload.totalCount,
+          isLoading: false,
         },
       };
     case FETCH_JOBS_LIST_FAILURE:
@@ -39,6 +45,7 @@ const jobsReducer: Reducer<IJobsList, SearchJobsActions> = (
           jdList: state.jobsData.jdList,
           totalCount: state.jobsData.totalCount,
           success: action.payload.success,
+          isLoading: false,
         },
       };
 

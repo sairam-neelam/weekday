@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { fetchUser } from "../../services/apiService";
+import { fetchJobs } from "../../services/apiService";
 import { FetchJobsListRequest, FetchJobsListSuccessPayload } from "./types";
 import { fetchJobsListFailure, fetchJobsListSuccess } from "./action";
 import { FETCH_JOBS_LIST_REQUEST } from "./actionTypes";
@@ -7,7 +7,7 @@ import { FETCH_JOBS_LIST_REQUEST } from "./actionTypes";
 function* fetchJobsListSaga(action: FetchJobsListRequest): any {
   try {
     const response: FetchJobsListSuccessPayload = yield call(
-      fetchUser,
+      fetchJobs,
       action.payload
     );
     yield put(
