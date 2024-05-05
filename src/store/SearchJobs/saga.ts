@@ -10,7 +10,6 @@ function* fetchJobsListSaga(action: FetchJobsListRequest): any {
       fetchUser,
       action.payload
     );
-    console.log(response);
     yield put(
       fetchJobsListSuccess({
         jdList: response.jdList,

@@ -6,28 +6,15 @@ import { jobsDataSelector } from "../../store/SearchJobs/selectors";
 import { JobsListArr } from "../../store/SearchJobs/types";
 import "./JobsList.css";
 import JobCard from "../JobCard/JobCard";
-import MultiSelect from "../common/MultiSelect/MultiSelect";
 import Select from "react-select";
-import { BASE_SALARY, EXPERIENCE, LOCATION, MODE, ROLES } from "./constants";
-
-const names = [
-  "Humaira Sims",
-  "Santiago Solis",
-  "Dawid Floyd",
-  "Mateo Barlow",
-  "Samia Navarro",
-  "Kaden Fields",
-  "Genevieve Watkins",
-  "Mariah Hickman",
-  "Rocco Richardson",
-  "Harris Glenn",
-];
-
-const options = [
-  { value: "Eric", label: "Eric", src: "/static/images/avatar/1.jpg" },
-  { value: "Smith", label: "Smith", src: "/static/images/avatar/2.jpg" },
-  { value: "Erika", label: "Erika", src: "/static/images/avatar/3.jpg" },
-];
+import {
+  BASE_SALARY,
+  EXPERIENCE,
+  LOCATION,
+  MODE,
+  Options,
+  ROLES,
+} from "./constants";
 
 const JobsList = () => {
   const dispatch = useDispatch();
@@ -35,16 +22,40 @@ const JobsList = () => {
   const [offset, setOffset] = useState<number>(0);
   const jobsData = useSelector(jobsDataSelector);
   const [jobsList, setJobsList] = useState<JobsListArr[]>([]);
+  const [filteredJobsList, setFilteredJobsList] = useState<JobsListArr[]>([]);
   const [selectedRoles, setSelectedRoles] = useState<any>([]);
   const [selectedExp, setSelectedExp] = useState<any>(null);
   const [selectedLocation, setSelectedLocation] = useState<any>(null);
   const [selectedMode, setSelectedMode] = useState<any>(null);
   const [selectedSalary, setSelectedSalary] = useState<any>(null);
   const [selectedCompany, setSelectedCompany] = useState<any>("");
+  let scrollTimeout: any = null;
 
   useEffect(() => {
     dispatch(fetchJobsListRequest({ offset: 0, limit: 10 }));
   }, []);
+
+  useEffect(() => {
+    parentRef?.current?.addEventListener("scroll", handleScroll);
+    return () => {
+      parentRef?.current?.removeEventListener("scroll", handleScroll);
+    };
+  }, [offset]);
+
+  useEffect(() => {
+    const parentElement = parentRef.current;
+    if (parentElement) {
+      const hasVerticalScrollbar =
+        parentElement.scrollHeight > parentElement.clientHeight;
+      if (!hasVerticalScrollbar) {
+        // Add additional content or adjust styling to make scrolling possible
+        parentElement.style.overflowY = "auto";
+        parentElement.style.height = "600px";
+      } else {
+        parentElement.style.height = "100vh";
+      }
+    }
+  }, [parentRef, filteredJobsList]);
 
   useEffect(() => {
     if (jobsData.success) {
@@ -52,20 +63,69 @@ const JobsList = () => {
     }
   }, [jobsData]);
 
-  const handleScroll = () => {
-    if (
-      parentRef.current &&
-      parentRef.current.scrollTop + parentRef.current.clientHeight >=
-        parentRef.current.scrollHeight
-    ) {
-      console.log("test");
-      dispatch(fetchJobsListRequest({ offset: offset + 10, limit: 10 }));
-      setOffset((prev) => prev + 10);
+  useEffect(() => {
+    let tempList: JobsListArr[] = [];
+
+    tempList = filterByRoles(jobsList, selectedRoles);
+    tempList = filterByExp(tempList, selectedExp);
+
+    setFilteredJobsList([...tempList]);
+  }, [jobsList, selectedRoles, selectedExp]);
+
+  const filterByRoles = (list: JobsListArr[], roles: Options[]) => {
+    let filterList = [];
+    if (roles.length === 0) {
+      filterList = list;
+    } else {
+      filterList = list.filter((dataItem) =>
+        roles.some(
+          (filterItem: { value: any }) =>
+            filterItem.value.toLowerCase() === dataItem.jobRole.toLowerCase()
+        )
+      );
     }
+    return filterList;
+  };
+
+  const filterByExp = (list: JobsListArr[], exp: Options) => {
+    let filterList = [];
+    if (exp) {
+      filterList = list.filter((el) => el.minExp <= Number(exp.value));
+    } else {
+      filterList = list;
+    }
+
+    return filterList;
+  };
+
+  const handleScroll = () => {
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+
+    scrollTimeout = setTimeout(() => {
+      if (
+        parentRef.current &&
+        parentRef.current.scrollTop + parentRef.current.clientHeight + 100 >=
+          parentRef.current.scrollHeight
+      ) {
+        if (jobsData?.totalCount >= jobsList.length) {
+          dispatch(fetchJobsListRequest({ offset: offset + 10, limit: 10 }));
+          setOffset((prev) => prev + 10);
+        }
+      }
+    }, 200);
   };
 
   return (
-    <div>
+    <div
+      ref={parentRef}
+      className="feed-container"
+      style={{
+        height: `100vh`,
+        overflowY: "auto",
+      }}
+    >
       <div className="filter-container">
         <div className="f-g-1">
           <div className="label">{selectedRoles.length > 0 && "Roles"}</div>
@@ -89,6 +149,7 @@ const JobsList = () => {
             className="select-roles"
             classNamePrefix="select"
             placeholder="Experience"
+            isClearable
           />
         </div>
 
@@ -140,16 +201,16 @@ const JobsList = () => {
         </div>
       </div>
       <div
-        ref={parentRef}
-        className="feed-container"
-        style={{
-          height: `90vh`,
-          overflow: "auto", // Make it scroll!
-        }}
-        onScroll={handleScroll}
+      // ref={parentRef}
+      // className="feed-container"
+      // style={{
+      //   height: `90vh`,
+      //   overflow: "auto",
+      // }}
+      //onScroll={handleScroll}
       >
         <div className="jobs-list">
-          {jobsList?.map((job) => (
+          {filteredJobsList?.map((job) => (
             <JobCard key={job?.jdUid} job={job} />
           ))}
         </div>
