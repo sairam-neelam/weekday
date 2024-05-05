@@ -193,7 +193,7 @@ const JobsList = () => {
       }}
     >
       <div className="filter-container">
-        <div className="f-g-1">
+        <div className="select-container">
           <div className="label">{selectedRoles.length > 0 && "Roles"}</div>
           <Select
             isMulti
@@ -206,27 +206,27 @@ const JobsList = () => {
           />
         </div>
 
-        <div>
+        <div className="select-container">
           <div className="label">{selectedExp && "Experience"}</div>
           <Select
             onChange={(e) => setSelectedExp(e)}
             name="exp"
             options={EXPERIENCE}
-            className="select-roles"
+            className="select-exp"
             classNamePrefix="select"
             placeholder="Experience"
             isClearable
           />
         </div>
 
-        <div className="f-g-1">
+        <div className="select-container">
           <div className="label">
             {selectedLocation.length > 0 && "Location"}
           </div>
           <Select
             isMulti
             onChange={(e) => setSelectedLocation([...e])}
-            name="exp"
+            name="location"
             options={LOCATION}
             className="select-roles"
             classNamePrefix="select"
@@ -234,24 +234,24 @@ const JobsList = () => {
           />
         </div>
 
-        <div>
+        <div className="select-container">
           <div className="label">{selectedMode && "Mode"}</div>
           <Select
             onChange={(e) => setSelectedMode(e)}
-            name="exp"
+            name="mode"
             options={MODE}
-            className="select-roles"
+            className="select-mode"
             classNamePrefix="select"
             placeholder="Remote"
             isClearable
           />
         </div>
 
-        <div>
+        <div className="select-container">
           <div className="label">{selectedSalary && "Min Base Pay"}</div>
           <Select
             onChange={(e) => setSelectedSalary(e)}
-            name="exp"
+            name="pay"
             options={BASE_SALARY}
             className="select-roles"
             classNamePrefix="select"
@@ -259,7 +259,7 @@ const JobsList = () => {
           />
         </div>
 
-        <div>
+        <div className="input-container">
           <div className="label">{selectedCompany && "Company Name"}</div>
           <input
             className="search-input"
