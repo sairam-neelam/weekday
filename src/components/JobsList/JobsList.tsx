@@ -16,6 +16,7 @@ import {
   Options,
   ROLES,
 } from "./constants";
+import useDebounce from "../../hooks/useDebounce";
 
 const JobsList = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const JobsList = () => {
   const [selectedMode, setSelectedMode] = useState<any>(null);
   const [selectedSalary, setSelectedSalary] = useState<any>(null);
   const [selectedCompany, setSelectedCompany] = useState<any>("");
+  const debouncedCompanyName = useDebounce(selectedCompany, 300);
   let scrollTimeout: any = null;
 
   useEffect(() => {
@@ -71,7 +73,7 @@ const JobsList = () => {
     tempList = filterByLocation(tempList, selectedLocation);
     tempList = filterByMode(tempList, selectedMode);
     tempList = filterByPay(tempList, selectedSalary);
-    tempList = filterByCompany(tempList, selectedCompany);
+    tempList = filterByCompany(tempList, debouncedCompanyName);
 
     setFilteredJobsList([...tempList]);
   }, [
@@ -81,7 +83,7 @@ const JobsList = () => {
     selectedLocation,
     selectedMode,
     selectedSalary,
-    selectedCompany,
+    debouncedCompanyName,
   ]);
 
   const filterByRoles = (list: JobsListArr[], roles: Options[]) => {
