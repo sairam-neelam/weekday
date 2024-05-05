@@ -4,7 +4,7 @@ import JobsList from "./components/JobsList/JobsList";
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <JobsList />
     </div>
   );
