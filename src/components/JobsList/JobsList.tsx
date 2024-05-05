@@ -25,7 +25,7 @@ const JobsList = () => {
   const [filteredJobsList, setFilteredJobsList] = useState<JobsListArr[]>([]);
   const [selectedRoles, setSelectedRoles] = useState<any>([]);
   const [selectedExp, setSelectedExp] = useState<any>(null);
-  const [selectedLocation, setSelectedLocation] = useState<any>(null);
+  const [selectedLocation, setSelectedLocation] = useState<any>([]);
   const [selectedMode, setSelectedMode] = useState<any>(null);
   const [selectedSalary, setSelectedSalary] = useState<any>(null);
   const [selectedCompany, setSelectedCompany] = useState<any>("");
@@ -68,9 +68,21 @@ const JobsList = () => {
 
     tempList = filterByRoles(jobsList, selectedRoles);
     tempList = filterByExp(tempList, selectedExp);
+    tempList = filterByLocation(tempList, selectedLocation);
+    tempList = filterByMode(tempList, selectedMode);
+    tempList = filterByPay(tempList, selectedSalary);
+    tempList = filterByCompany(tempList, selectedCompany);
 
     setFilteredJobsList([...tempList]);
-  }, [jobsList, selectedRoles, selectedExp]);
+  }, [
+    jobsList,
+    selectedRoles,
+    selectedExp,
+    selectedLocation,
+    selectedMode,
+    selectedSalary,
+    selectedCompany,
+  ]);
 
   const filterByRoles = (list: JobsListArr[], roles: Options[]) => {
     let filterList = [];
@@ -91,6 +103,58 @@ const JobsList = () => {
     let filterList = [];
     if (exp) {
       filterList = list.filter((el) => el.minExp <= Number(exp.value));
+    } else {
+      filterList = list;
+    }
+
+    return filterList;
+  };
+
+  const filterByLocation = (list: JobsListArr[], locations: Options[]) => {
+    let filterList = [];
+    if (locations.length === 0) {
+      filterList = list;
+    } else {
+      filterList = list.filter((dataItem) =>
+        locations.some(
+          (filterItem: { value: any }) =>
+            filterItem.value.toLowerCase() === dataItem.location.toLowerCase()
+        )
+      );
+    }
+    return filterList;
+  };
+
+  const filterByMode = (list: JobsListArr[], mode: Options) => {
+    let filterList = [];
+    if (mode) {
+      filterList = list.filter(
+        (el) => el.location.toLowerCase() == mode.label.toLowerCase()
+      );
+    } else {
+      filterList = list;
+    }
+
+    return filterList;
+  };
+
+  const filterByPay = (list: JobsListArr[], pay: Options) => {
+    let filterList = [];
+    if (pay) {
+      filterList = list.filter((el) => el.minJdSalary >= Number(pay.value));
+    } else {
+      filterList = list;
+    }
+
+    return filterList;
+  };
+
+  const filterByCompany = (list: JobsListArr[], company: string) => {
+    let filterList = [];
+    if (company.length > 0) {
+      filterList = list.filter((el) =>
+        el.companyName.toLowerCase().includes(company.toLowerCase())
+      );
     } else {
       filterList = list;
     }
@@ -154,7 +218,9 @@ const JobsList = () => {
         </div>
 
         <div className="f-g-1">
-          <div className="label">{selectedLocation && "Location"}</div>
+          <div className="label">
+            {selectedLocation.length > 0 && "Location"}
+          </div>
           <Select
             isMulti
             onChange={(e) => setSelectedLocation([...e])}
@@ -175,6 +241,7 @@ const JobsList = () => {
             className="select-roles"
             classNamePrefix="select"
             placeholder="Remote"
+            isClearable
           />
         </div>
 
@@ -200,15 +267,7 @@ const JobsList = () => {
           />
         </div>
       </div>
-      <div
-      // ref={parentRef}
-      // className="feed-container"
-      // style={{
-      //   height: `90vh`,
-      //   overflow: "auto",
-      // }}
-      //onScroll={handleScroll}
-      >
+      <div>
         <div className="jobs-list">
           {filteredJobsList?.map((job) => (
             <JobCard key={job?.jdUid} job={job} />
