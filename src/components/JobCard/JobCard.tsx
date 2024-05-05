@@ -19,6 +19,7 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
+  outline: "none",
 };
 
 const JobCard = ({ job }: { job: JobsListArr }) => {
@@ -61,7 +62,7 @@ const JobCard = ({ job }: { job: JobsListArr }) => {
             </button>
             <button className="btn ref-btn">
               <AccountCircleIcon className="avatar" />
-              Ask For referral
+              Ask for referral
             </button>
           </div>
         </div>

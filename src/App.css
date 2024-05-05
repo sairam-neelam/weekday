@@ -19,6 +19,10 @@
   flex-direction: column;
 }
 
+.f-g-1 {
+  flex-grow: 1;
+}
+
 .w-100 {
   width: 100%;
 }
